@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
+CART_PAGE_URL = 'https://www.saucedemo.com/cart.html'
 
 def test_path():
     with sync_playwright() as playwright:
@@ -41,6 +42,9 @@ def test_path():
         shopping_cart_container = page.wait_for_selector('#shopping_cart_container')
         shopping_cart_container.click()
 
+        #cart_page = page.url
+        assert page.url == CART_PAGE_URL
+
         checkout_button_selector = '.btn.btn_action.btn_medium.checkout_button'
         checkout_button = page.wait_for_selector(checkout_button_selector)
         checkout_button.click()
@@ -69,6 +73,7 @@ def test_path():
 
         browser.close()
 
+        #assert cart_page == CART_PAGE_URL
         assert current_url == INVENTORY_PAGE_URL
 
 
