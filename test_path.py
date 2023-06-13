@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-
+from buttons import LOGIN_BUTTON_SELECTOR
 
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
@@ -20,9 +20,9 @@ def test_path():
         password_field = page.wait_for_selector(password_selector)
         password_field.fill('secret_sauce')
 
-        button_selector = '#login-button'
+        #button_selector = '#login-button'
 
-        button = page.wait_for_selector(button_selector)
+        button = page.wait_for_selector(LOGIN_BUTTON_SELECTOR)
         button.click()
 
         button_id = 'react-burger-menu-btn'
@@ -42,7 +42,6 @@ def test_path():
         shopping_cart_container = page.wait_for_selector('#shopping_cart_container')
         shopping_cart_container.click()
 
-        #cart_page = page.url
         assert page.url == CART_PAGE_URL
 
         checkout_button_selector = '.btn.btn_action.btn_medium.checkout_button'
@@ -73,7 +72,6 @@ def test_path():
 
         browser.close()
 
-        #assert cart_page == CART_PAGE_URL
         assert current_url == INVENTORY_PAGE_URL
 
 
