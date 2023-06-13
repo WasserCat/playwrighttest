@@ -22,8 +22,8 @@ def test_path():
 
         #button_selector = '#login-button'
 
-        button = page.wait_for_selector(LOGIN_BUTTON_SELECTOR)
-        button.click()
+        button = page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
+        #button.click()
 
         button_id = 'react-burger-menu-btn'
 
