@@ -14,14 +14,15 @@ def test_path():
         page = browser.new_page()
         page.goto('https://www.saucedemo.com')
 
-        username_selector = '#user-name'
-        password_selector = '#password'
+        field_data = {
+            '#user-name': 'standard_user',
+            '#password': 'secret_sauce'
+        }
 
-        username_field = page.wait_for_selector(username_selector)
-        username_field.fill('standard_user')
+        for selector, value in field_data.items():
+            field = page.wait_for_selector(selector)
+            field.fill(value)
 
-        password_field = page.wait_for_selector(password_selector)
-        password_field.fill('secret_sauce')
 
         #wait for button '#login-button' and then click on it
         page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
@@ -72,10 +73,7 @@ def test_path():
 
         page.wait_for_selector(BACK_HOME).click()
 
-
-
         current_url = page.url
-
 
         browser.close()
 
