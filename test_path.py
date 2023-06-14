@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON
+from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON
 
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
@@ -19,7 +19,6 @@ def test_path():
 
         password_field = page.wait_for_selector(password_selector)
         password_field.fill('secret_sauce')
-
 
         #wait for button '#login-button' and then click on it
         page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
@@ -41,12 +40,10 @@ def test_path():
         #click shoping cart after two items are placed inside
         page.wait_for_selector(SHOPPING_CART_BUTTON).click()
 
-
+        #test assert to check if Im in 'https://www.saucedemo.com/cart.html'
         assert page.url == CART_PAGE_URL
 
-        checkout_button_selector = '.btn.btn_action.btn_medium.checkout_button'
-        checkout_button = page.wait_for_selector(checkout_button_selector)
-        checkout_button.click()
+        page.wait_for_selector(CHECKOUT_BUTTON).click()
 
         first_name_field = page.wait_for_selector('#first-name')
         first_name_field.fill('Pawel')
