@@ -20,10 +20,10 @@ def test_path():
         password_field = page.wait_for_selector(password_selector)
         password_field.fill('secret_sauce')
 
-        #button_selector = '#login-button'
 
-        button = page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
-        #button.click()
+        #wait for button '#login-button' and then click on it
+        page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
+
 
         button_id = 'react-burger-menu-btn'
 
@@ -33,11 +33,11 @@ def test_path():
         backpack_button_id = 'add-to-cart-sauce-labs-backpack'
         bike_light_button_id = 'add-to-cart-sauce-labs-bike-light'
 
-        backpack_button = page.wait_for_selector(f'button#{backpack_button_id}')
-        backpack_button.click()
+        page.wait_for_selector(f'button#{backpack_button_id}').click()
 
-        bike_light_button = page.wait_for_selector(f'button#{bike_light_button_id}')
-        bike_light_button.click()
+
+        page.wait_for_selector(f'button#{bike_light_button_id}').click()
+
 
         shopping_cart_container = page.wait_for_selector('#shopping_cart_container')
         shopping_cart_container.click()
