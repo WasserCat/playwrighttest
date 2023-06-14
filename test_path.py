@@ -4,9 +4,12 @@ from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
 CART_PAGE_URL = 'https://www.saucedemo.com/cart.html'
+CHECKOUT_STEP_TWO = 'https://www.saucedemo.com/checkout-step-two.html'
+
 
 def test_path():
     with sync_playwright() as playwright:
+        #it's on headless false because I wanted to see what is happening. Normally it would not be on
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto('https://www.saucedemo.com')
@@ -58,9 +61,10 @@ def test_path():
             field.fill(value)
 
 
-
         continue_button = page.wait_for_selector('#continue')
         continue_button.click()
+
+        assert page.url == CHECKOUT_STEP_TWO
 
         finish_button = page.wait_for_selector('#finish')
         finish_button.click()
