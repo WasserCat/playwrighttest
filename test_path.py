@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON, FINISH_STEP_TWO
+from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON, FINISH_STEP_TWO, BACK_HOME
 
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
@@ -70,8 +70,8 @@ def test_path():
 
         assert page.url == "https://www.saucedemo.com/checkout-complete.html"
 
-        back_to_products_button = page.wait_for_selector('#back-to-products')
-        back_to_products_button.click()
+        page.wait_for_selector(BACK_HOME).click()
+
 
 
         current_url = page.url
