@@ -45,14 +45,19 @@ def test_path():
 
         page.wait_for_selector(CHECKOUT_BUTTON).click()
 
-        first_name_field = page.wait_for_selector('#first-name')
-        first_name_field.fill('Pawel')
+        #Dictionary to fill name last name postal code
 
-        last_name_field = page.wait_for_selector('#last-name')
-        last_name_field.fill('Gorski')
+        field_data = {
+            '#first-name': 'Pawel',
+            '#last-name': 'Gorski',
+            '#postal-code': '999'
+        }
 
-        postal_code_field = page.wait_for_selector('#postal-code')
-        postal_code_field.fill('999')
+        for selector, value in field_data.items():
+            field = page.wait_for_selector(selector)
+            field.fill(value)
+
+
 
         continue_button = page.wait_for_selector('#continue')
         continue_button.click()
