@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON, FINISH_STEP_TWO, BACK_HOME
+from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON, FINISH_STEP_TWO, BACK_HOME, BACKPACK_BUTTON_SELECTOR, BIKE_LIGHT_BUTTON_SELECTOR
 
 
 INVENTORY_PAGE_URL = 'https://www.saucedemo.com/inventory.html'
@@ -33,13 +33,8 @@ def test_path():
         button = page.wait_for_selector(f'button#{button_id}')
         button.click()
 
-        backpack_button_id = 'add-to-cart-sauce-labs-backpack'
-        bike_light_button_id = 'add-to-cart-sauce-labs-bike-light'
-
-        page.wait_for_selector(f'button#{backpack_button_id}').click()
-
-
-        page.wait_for_selector(f'button#{bike_light_button_id}').click()
+        page.wait_for_selector(f'button#{BACKPACK_BUTTON_SELECTOR}').click()
+        page.wait_for_selector(f'button#{BIKE_LIGHT_BUTTON_SELECTOR}').click()
 
         #click shoping cart after two items are placed inside
         page.wait_for_selector(SHOPPING_CART_BUTTON).click()
