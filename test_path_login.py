@@ -22,7 +22,7 @@ def test_correct_login():
         browser.close()
 
 #test for correct login incorrect password
-def test_failed_login():
+def test_failed_login_invalid_password():
     with sync_playwright() as playwright:
         # it's on headless false because I wanted to see what is happening. Normally it would not be on
         browser = playwright.chromium.launch(headless=False)
@@ -41,7 +41,6 @@ def test_failed_login():
 
 def test_failed_login_empty_password():
     with sync_playwright() as playwright:
-        # it's on headless false because I wanted to see what is happening. Normally it would not be on
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto('https://www.saucedemo.com')
@@ -51,7 +50,14 @@ def test_failed_login_empty_password():
         login_page = LoginPage(page)
         login_page.login('standard_user', '')  # Empty password
 
-        # Wait for the specific text to be displayed on the page
         page.wait_for_function('() => document.body.innerText.includes("Epic sadface: Password is required")')
 
         browser.close()
+        #################
+
+
+
+
+
+
+

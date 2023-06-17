@@ -14,3 +14,8 @@ class LoginPage:
         password_field.fill(password)
 
         self.page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
+
+class InventoryPage:
+    def inventory(self, items):
+        for item in items:
+            print(item)
