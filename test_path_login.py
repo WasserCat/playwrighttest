@@ -34,6 +34,9 @@ def test_failed_login_invalid_password():
         login_page = LoginPage(page)
         login_page.login('standard_user', 'incorrect_password')
 
+        assert page.inner_text('h3') == "Epic sadface: Username and password do not match any user in this service"
+
+
         # Assertion to check if the login fails and user remains on the login page
         assert page.url == 'https://www.saucedemo.com/'
 

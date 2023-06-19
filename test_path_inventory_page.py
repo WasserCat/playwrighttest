@@ -11,6 +11,7 @@ def test_correct_login():
         page.goto('https://www.saucedemo.com')
 
         assert page.url == 'https://www.saucedemo.com/'
+        assert page.title() == "Swag Labs"
 
         login_page = LoginPage(page)
         login_page.login('standard_user', 'secret_sauce')
