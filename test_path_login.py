@@ -6,6 +6,7 @@ from test_path_objects import LoginPage
 
 def test_correct_login():
     with sync_playwright() as playwright:
+
         #it's on headless false because I wanted to see what is happening. Normally it would not be on
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
@@ -24,7 +25,7 @@ def test_correct_login():
 #test for correct login incorrect password
 def test_failed_login_invalid_password():
     with sync_playwright() as playwright:
-        # it's on headless false because I wanted to see what is happening. Normally it would not be on
+
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto('https://www.saucedemo.com')
