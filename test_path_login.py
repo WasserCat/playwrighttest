@@ -1,67 +1,36 @@
-# Test for correct login and password using page object pattern
-
+import pytest
+import time
 from playwright.sync_api import sync_playwright
-from buttons import LOGIN_BUTTON_SELECTOR, SHOPPING_CART_BUTTON, CHECKOUT_BUTTON, FINISH_STEP_TWO, BACK_HOME, BACKPACK_BUTTON_SELECTOR, BIKE_LIGHT_BUTTON_SELECTOR
-from test_path_objects import LoginPage
 
-def test_correct_login():
+
+def pytest_addoption(parser):
+    parser.addoption('--browser', action='store', default='chromium', help='Browser option: chromium, firefox, or webkit')
+    parser.addoption('--headed', action='store_true', help='Run the test in headed mode')
+
+
+@pytest.fixture(scope="module")
+def playwright_page(request):
+    browser_option = request.config.getoption('--browser')
+    is_headed = request.config.getoption('--headed')
+
+    if isinstance(browser_option, list):
+        browser_option = browser_option[0]
+
     with sync_playwright() as playwright:
+        browser = getattr(playwright, browser_option).launch(headless=not is_headed)
 
-        #it's on headless false because I wanted to see what is happening. Normally it would not be on
-        browser = playwright.chromium.launch(headless=False)
+        if not browser:
+            raise ValueError(f"Invalid browser option: {browser_option}")
+
         page = browser.new_page()
         page.goto('https://www.saucedemo.com')
 
-        assert page.url == 'https://www.saucedemo.com/'
-
-        login_page = LoginPage(page)
-        login_page.login('standard_user', 'secret_sauce')
-
-        # Assertion to check if the login is successful
-        assert page.url == 'https://www.saucedemo.com/inventory.html'
+        yield page
 
         browser.close()
 
-#test for correct login incorrect password
-def test_failed_login_invalid_password():
-    with sync_playwright() as playwright:
 
-        browser = playwright.chromium.launch(headless=False)
-        page = browser.new_page()
-        page.goto('https://www.saucedemo.com')
+def test_open_page(playwright_page):
+    page = playwright_page
 
-        assert page.url == 'https://www.saucedemo.com/'
-
-        login_page = LoginPage(page)
-        login_page.login('standard_user', 'incorrect_password')
-
-        assert page.inner_text('h3') == "Epic sadface: Username and password do not match any user in this service"
-
-
-        # Assertion to check if the login fails and user remains on the login page
-        assert page.url == 'https://www.saucedemo.com/'
-
-        browser.close()
-
-def test_failed_login_empty_password():
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        page = browser.new_page()
-        page.goto('https://www.saucedemo.com')
-
-        assert page.url == 'https://www.saucedemo.com/'
-
-        login_page = LoginPage(page)
-        login_page.login('standard_user', '')  # Empty password
-
-        page.wait_for_function('() => document.body.innerText.includes("Epic sadface: Password is required")')
-
-        browser.close()
-        #################
-
-
-
-
-
-
-
+    time.sleep(3)

@@ -1,6 +1,7 @@
-
-
 from buttons import LOGIN_BUTTON_SELECTOR
+import re
+from playwright.sync_api import sync_playwright
+
 
 class LoginPage:
     def __init__(self, page):
@@ -15,7 +16,6 @@ class LoginPage:
 
         self.page.wait_for_selector(LOGIN_BUTTON_SELECTOR).click()
 
-class InventoryPage:
-    def inventory(self, items):
-        for item in items:
-            print(item)
+
+class SetUp:
+

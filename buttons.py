@@ -5,3 +5,5 @@ FINISH_STEP_TWO = '#finish'
 BACK_HOME = '#back-to-products'
 BACKPACK_BUTTON_SELECTOR = 'add-to-cart-sauce-labs-backpack'
 BIKE_LIGHT_BUTTON_SELECTOR = 'add-to-cart-sauce-labs-bike-light'
+
+####Fields####
