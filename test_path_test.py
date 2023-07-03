@@ -24,18 +24,18 @@ def playwright_page(request):
             raise ValueError(f"Invalid browser option: {browser_option}")
 
         page = browser.new_page()
-        page.goto('https://www.saucedemo.com')
 
         yield page
 
-        browser.close()
+#        browser.close()
 
 
 def test_open_page(playwright_page):
     page = playwright_page
 
-    time.sleep(3)
+    page.goto('https://www.saucedemo.com')
 
+    time.sleep(3)
 
 
 
